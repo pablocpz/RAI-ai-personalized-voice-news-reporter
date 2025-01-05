@@ -3,3 +3,7 @@ Set up a .env file with the following variables (optional: log in into Langsmith
 OPENAI_API_KEY=""
 TAVILY_API_KEY=""
 ```
+To run the main script, execute:
+```bash
+python main.py
+```
