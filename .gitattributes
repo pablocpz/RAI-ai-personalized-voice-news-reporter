@@ -1,0 +1,2 @@
+chroma_db/07b4d928-4e6e-4ea0-b3a8-c2277e659770/data_level0.bin filter=lfs diff=lfs merge=lfs -text
+chroma_db/chroma.sqlite3 filter=lfs diff=lfs merge=lfs -text
