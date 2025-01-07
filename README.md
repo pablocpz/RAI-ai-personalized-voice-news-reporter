@@ -13,3 +13,6 @@
 ## 1. Pipeline
 
 ### 1.1 - News Reporter Agent Graph
+### 1.2 - News Voice-enabled Narrator Chain
+### 1.3 - RAG-WebSearch QA Realtime Voice Chatbot
+
