@@ -15,11 +15,11 @@ import numpy as np
 import time
 from threading import Thread, Event
 import keyboard
-from tts_variants import sync_tts, sync_tts_eleven
+from tts_variants import sync_tts, sync_tts_eleven, streamed_response_tts
 from utils.sst import transcribe_audio
 import asyncio
 
-
+from aaa import text_to_tts
 
 
 def get_inference(input_question:str, news_summary:str, thread_id=1, max_recursion=25):
@@ -35,12 +35,29 @@ def get_inference(input_question:str, news_summary:str, thread_id=1, max_recursi
     
     try:
         # Attempt the invocation
-        content = chatbot_graph.invoke(inputs, thread)["generation"]
+        content = chatbot_graph.invoke(inputs, thread)
+        
+        if content.get("streaming_avaiable", []) == True:
+            
+            generator = content["response_stream"]
+            
+            streamed_response_tts(streaming_response=generator)
+            print("generator streamed")
+            
+            return None
+         
+        else:
+            generation = content["generation"].content
+            print(generation)
+            
+            return generation
+          
+        
     except RecursionError:
         
         content = "Sorry, there was an error, please ask me again!"
 
-    return content
+        return content
 
 
 
@@ -145,21 +162,29 @@ async def main():
                 start_time = time.time()
 
                 # Get bot response based on the transcribed text
+                #we'll only get such text if the streaming is not avaiable)
+                
                 content = get_inference(input_question=user_input, news_summary=news_summary, max_recursion=25)
-                print(f"[*] Bot response: {content}")
                 
-                end_time = time.time()
-                inference_time = end_time - start_time
-
-                print(f"Inference took {inference_time} seconds")
-                #--------------------
-                sync_tts(content)
-                # await async_chunking_tts(content, chunk_size=50)  # Use await instead of asyncio.run()
-
-                #--------------------   
+                if content !=None:
+                #only if the function returns something (non-streaming response)
                 
-                # Pause briefly before the next iteration
-                time.sleep(1)
+                    print(f"[*] Bot response: {content}")
+                    
+                    end_time = time.time()
+                    inference_time = end_time - start_time
+
+                    print(f"Inference took {inference_time} seconds")
+                    #--------------------
+                    
+                    # sync_tts(content)
+                    text_to_tts(content)
+                    # await async_chunking_tts(content, chunk_size=50)  # Use await instead of asyncio.run()
+
+                    #--------------------   
+                    
+                    # Pause briefly before the next iteration
+                    time.sleep(1)
             else:
                 print("No audio recorded.")
                 
