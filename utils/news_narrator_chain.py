@@ -47,13 +47,32 @@ def create_final_narrative(summaries):
     return final_narrative
 
 # Step 8: Function to read and process the news reports from files
+# def load_news_reports(directory_path="rag_docs"):
+#     #directory from where we call this script
+#     news_list = []
+#     for filename in os.listdir(directory_path):
+#         if filename.endswith(".md"):
+#             with open(os.path.join(directory_path, filename), 'r') as file:
+#                 news_list.append(file.read())
+#     return news_list
+
+import os
+
 def load_news_reports(directory_path="rag_docs"):
-    #directory from where we call this script
+    # directory from where we call this script
     news_list = []
     for filename in os.listdir(directory_path):
         if filename.endswith(".md"):
-            with open(os.path.join(directory_path, filename), 'r') as file:
-                news_list.append(file.read())
+            file_path = os.path.join(directory_path, filename)
+            try:
+                # Try opening the file with UTF-8 encoding
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    news_list.append(file.read())
+            except UnicodeDecodeError:
+                # Handle the case where decoding fails
+                print(f"Warning: Could not decode file {file_path} with UTF-8 encoding.")
+                with open(file_path, 'r', encoding='latin1', errors='replace') as file:
+                    news_list.append(file.read())
     return news_list
 
 

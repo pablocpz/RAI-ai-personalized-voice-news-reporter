@@ -24,6 +24,8 @@ from typing import Generator
 
 tavily_client = TavilyClient()
 
+print("- Compiling the graph...")
+
 @dataclass
 class StreamResponse:
     content: str
@@ -48,7 +50,8 @@ class SearchQueriesParams(BaseModel):
 
 
 #we'll reference to this object very often to add new docs...etc
-    
+
+
 class GraphState(TypedDict):
     news_summary : str 
     question : str
@@ -73,8 +76,8 @@ class InputState(TypedDict):
 class OutputState(TypedDict):
     
     streaming_avaiable:bool
-    response_stream : Generator[StreamResponse, None, None]
-    generation:str
+    response_stream : Union[Generator[StreamResponse, None, None], None]
+    generation:Union[str, None]
     
 
 # Check if the directory and files are readable
@@ -94,6 +97,7 @@ for file in os.listdir(markdown_folder_path):
         documents.extend(loader.load())  # Add loaded documents to the list
 
 text_splitter = RecursiveCharacterTextSplitter(
+       #1200                     #100    
     chunk_size=1200, chunk_overlap=100, add_start_index=True #starting char pos.
     #size of characters for each chunk
     #2nd param: will let us have a little portion of the prev. chunk
@@ -500,7 +504,7 @@ def answer_trivial_question(state):
     
     # response.id = "final_pred"
     # Return the state with the generated response for trivial question
-    return {"question": question, "streaming_avaiable": True, "response_stream":response_stream}
+    return {"question": question, "streaming_avaiable": True, "response_stream":response_stream, "generation":None}
 #                                               #we put the generation key (final answer) in the state
     
 
@@ -840,7 +844,7 @@ def grade_generation_v_documents_and_question(state):
             # print("---DECISION: GENERATION IS GROUNDED IN DOCUMENTS, AND IT ANSWERS THE QUESTION---")
             # return "useful"
             return {"decission":"useful", "feedback":None, "iterations":n_iterations, #si es useful, acaba
-                    "generation":generation}
+                    "generation":generation, "streaming_avaiable":False, "response_stream":None}
             
             
                                 #para que una respuesta sea buena
@@ -855,7 +859,7 @@ def grade_generation_v_documents_and_question(state):
             # print("---DECISION: GENERATION DOES NOT ANSWER THE QUESTION, RUNNING WEBSEARCH---")
             # return "not_useful" #then we simply retry the websearch (only)
             return {"decission":"not_useful", "feedback":response["feedback"],
-                    "iterations":n_iterations, "generation":generation}
+                    "iterations":n_iterations, "generation":generation, "streaming_avaiable":False, "response_stream":None}
             
     else:
         #IF THE MODEL HALLUCINATES, WE RE-RUN ONLY THE GENERATION
@@ -869,7 +873,7 @@ def grade_generation_v_documents_and_question(state):
     
 
         return {"decission":"not_grounded", "feedback":response["feedback"],
-                "iterations":n_iterations, "generation":generation}
+                "iterations":n_iterations, "generation":generation, "streaming_avaiable":False}
     
     
 def process_final_pred(state):
@@ -1034,4 +1038,5 @@ memory = stack.enter_context(SqliteSaver.from_conn_string(":memory:"))
 
 app = workflow.compile() #checkpointer=memory
 
+print("-graph sucessfully compiled-")
 thread = {"configurable": {"thread_id":"1"}} #"recursion_limit":60

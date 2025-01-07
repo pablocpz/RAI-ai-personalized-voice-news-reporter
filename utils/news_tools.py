@@ -203,7 +203,7 @@ def format_title(title):
     title = title[:max_length]
     return title
 
-def export_markdown_reports(data_list, headlines, output_folder="reports"):
+def export_markdown_reports(data_list, headlines, output_folder="rag_docs"):
     # Create the output folder if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
