@@ -14,5 +14,7 @@
 
 ### 1.1 - News Reporter Agent Graph
 ### 1.2 - News Voice-enabled Narrator Chain
-### 1.3 - RAG-WebSearch QA Realtime Voice Chatbot
 
+### 1.3 - RAG-WebSearch QA Realtime Voice Chatbot
+to-do: implement memmory between conversations & twilio-websockets communication for phone calling - and reduce latency (improve architecture efficiency)
+![image](https://github.com/user-attachments/assets/92d9a46a-ffd4-46b2-aa3a-d1bcaba71e48)
