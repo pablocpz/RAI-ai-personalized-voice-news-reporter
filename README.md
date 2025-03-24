@@ -1,4 +1,5 @@
-## Personalized Voice AI Realtime Reporter-
+## Personalized Voice AI Realtime Reporter
+
 ![image](https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531)
 
 - Tailored to your background
@@ -18,3 +19,12 @@
 ### 1.3 - RAG-WebSearch QA Realtime Voice Chatbot
 to-do: implement memmory between conversations & twilio-websockets communication for phone calling - and reduce latency (improve architecture efficiency)
 ![image](https://github.com/user-attachments/assets/92d9a46a-ffd4-46b2-aa3a-d1bcaba71e48)
+
+
+## 2. Things to Improve
+
+- Reduce the overall latency and response time
+- Enhace the graph architecture, and make it more efficient
+- Use different data sources for the news
+- Implement a nice GUI to the user be able to select his/her news interests, and background knowledge
+- Set up the twilio engine
