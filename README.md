@@ -2,6 +2,8 @@
 
 ![image](https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531)
 
+### Twitter thread +demo: https://x.com/pablocpz_ai/status/1876669029961843019 
+
 - Tailored to your background
 - Customized for your interests
 - Never miss the headlines again – Stay updated, effortlessly!
