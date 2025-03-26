@@ -25,7 +25,7 @@
 to-do: implement memmory between conversations & twilio-websockets communication for phone calling - and reduce latency (improve architecture efficiency)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/92d9a46a-ffd4-46b2-aa3a-d1bcaba71e48" width="600">
+  <img src="https://github.com/user-attachments/assets/92d9a46a-ffd4-46b2-aa3a-d1bcaba71e48" width="750">
 </p>
 
 ## 2. Things to Improve
