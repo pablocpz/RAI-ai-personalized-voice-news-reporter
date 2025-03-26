@@ -1,6 +1,9 @@
 ## Personalized Voice AI Realtime Reporter
 
-![image](https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531" width="300">
+</p>
+
 
 ### Twitter thread +demo: https://x.com/pablocpz_ai/status/1876669029961843019 
 
