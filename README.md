@@ -1,7 +1,7 @@
 ## Personalized Voice AI Realtime Reporter
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531" width="300">
+  <img src="https://github.com/user-attachments/assets/f76edc19-9518-4422-a3d0-47388a641531" width="700">
 </p>
 
 
